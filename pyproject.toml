@@ -1,0 +1,89 @@
+[project]
+name = "mypt"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rich>=14.0.0",
+    "structlog>=25.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.8.6",
+    "hypothesis>=6.135.29",
+    "pip-audit>=2.9.0",
+    "pre-commit>=4.2.0",
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.12.3",
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.lint]
+exclude = [".venv"]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "SIM",    # flake8-simplify
+    "RUF",    # Ruff-specific rules
+    "TCH",    # flake8-type-checking
+    "PTH",    # flake8-use-pathlib
+    "PL",     # Pylint
+]
+ignore = [
+    "G004",
+    "F821",
+    "C401",
+    "C408",
+    "RUF001",
+    "RUF002",
+    "RUF003",
+    "ANN101",
+    "ANN102",
+    "PERF203",
+    "PERF401",
+    "PLR2004",
+    "PLC2401",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F401", "E402", "PLR2004", "PLR0913"]
+
+[tool.pyright]
+include = ["src","tests"]
+exclude = [".venv","**__pycache__"]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.12"
+pythonPlatform = "All"
+typeCheckingMode = "standard"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101", "B311", "B404", "B603"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+pythonpath = ["src"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov-branch",
+]
+markers = [
+    "slow: marks slow tests (deselect with '-m \"not slow\"')",
+    "integration: marks integration tests",
+]

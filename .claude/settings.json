@@ -1,0 +1,15 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(pwd:*)",
+            "Bash(ls:*)",
+            "Bash(cat:*)"
+        ],
+        "deny": [
+            "Bash(rm:*)",
+            "Bash(sudo:*)",
+            "Bash(curl:*)",
+            "Bash(*)"
+        ]
+    }
+}
